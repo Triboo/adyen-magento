@@ -38,6 +38,10 @@ In case you are using a caching layer such as Varnish, please exclude the follow
 ```
 /adyen/process/*
 ```
+and
+```
+/adyen/ThreeDS2Process/*
+```
 
 ## Support
 You can create issues on our Magento Repository. In case of specific problems with your account, please contact <a href="mailto:support@adyen.com">support@adyen.com</a>.
