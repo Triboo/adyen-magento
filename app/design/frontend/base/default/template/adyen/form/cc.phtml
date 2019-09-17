@@ -108,6 +108,17 @@ $originKey = $this->getOriginKey();
             var cardGroupTypes = alt_types.slice();
             var self = this;
             var cardNode = document.getElementById('cardContainer');
+            var styleExample = {
+                error: {
+                    color: 'orange'
+                },
+                validated: {
+                    color: 'blue'
+                },
+                placeholder: {
+                    color: '#d8d8d8'
+                }
+            };
 
             // we can now rely on $ within the safety of our "bodyguard" function
             var checkout = new AdyenCheckout({
@@ -123,6 +134,7 @@ $originKey = $this->getOriginKey();
                 hasHolderName: true,
                 holderNameRequired: true,
                 groupTypes: cardGroupTypes,
+                styles: styleExample,
 
                 onChange: function (state, component) {
                     if (state.isValid && !component.state.errors.encryptedSecurityCode) {
