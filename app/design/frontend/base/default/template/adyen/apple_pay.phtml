@@ -346,7 +346,8 @@ if ($this->hasApplePayEnabled()):
 
                     if (success) {
                         // redirect to success page
-                        window.location = "/checkout/onepage/success";
+                        window.location = "<?php echo $this->getUrl('checkout/onepage/success',
+                            array('_secure' => true)); ?>";
                     }
                 }, function(reason) {
                     var status = session.STATUS_FAILURE;
