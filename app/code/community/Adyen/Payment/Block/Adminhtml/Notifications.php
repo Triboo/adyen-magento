@@ -37,7 +37,7 @@ class Adyen_Payment_Block_Adminhtml_Notifications extends Mage_Adminhtml_Block_T
         if ($this->_cronCheck > 0) {
             $message = ('You have ' . $this->_cronCheck . ' unprocessed notification(s). Please check your Cron ');
             $message .= "and visit <a href='http://devdocs.magento.com/guides/m1x/install/installing_install.html#install-cron' target='_blank'>Magento DevDocs</a> and 
-                    <a href='https://docs.adyen.com/developers/plug-ins-and-partners/magento/magento-1/configure-the-adyen-plug-in' target='_blank'>Adyen Docs</a> on how to configure Cron.";
+                    <a href='https://docs.adyen.com/plugins/magento-1/set-up-the-plugin-in-magento-m1' target='_blank'>Adyen Docs</a> on how to configure Cron.";
             $message .= "<i> Last  cron check was: " . $this->_dateChecked->format('Y/m/d H:i:s') . "</i>";
             return $message;
         } else {
