@@ -149,7 +149,7 @@ class Adyen_Payment_Model_Adyen_Hpp extends Adyen_Payment_Model_Adyen_Abstract
         $incrementId = $order->getIncrementId();
         $realOrderId = $order->getRealOrderId();
         $orderCurrencyCode = $order->getOrderCurrencyCode();
-        $shopperIP = trim($order->getRemoteIp());
+        $shopperIP = trim($order->getXForwardedFor());
 
         $billingCountryCode = (is_object($order->getBillingAddress()) && $order->getBillingAddress()->getCountry() != "") ?
             $order->getBillingAddress()->getCountry() :

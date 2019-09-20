@@ -25,7 +25,7 @@ composer require adyen/payment
 ```
 
 ## Documentation
-[Magento documentation](https://docs.adyen.com/developers/plug-ins-and-partners/magento-1)
+[Magento documentation](https://docs.adyen.com/plugins/magento-1)
 
 ## Videos
 * [Point-of-Sale demo of the Adyen Payment module](https://vimeo.com/128983014)
@@ -37,6 +37,10 @@ Make sure that your Magento cron is running every minute. We are using a cronjob
 In case you are using a caching layer such as Varnish, please exclude the following URL pattern from being cached
 ```
 /adyen/process/*
+```
+and
+```
+/adyen/ThreeDS2Process/*
 ```
 
 ## Support

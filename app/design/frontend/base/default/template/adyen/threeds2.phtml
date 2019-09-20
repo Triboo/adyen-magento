@@ -85,12 +85,15 @@
                     if (response.authentication) {
                         renderThreeDS2Component(response["resultCode"], response["authentication"]["threeds2.challengeToken"]);
                     } else if (response === "Authorised") {
-                        window.location = "/checkout/onepage/success";
+                        window.location = "<?php echo $this->getUrl('checkout/onepage/success',
+                            array('_secure' => true)); ?>";
                     } else if (response === "Refused" || response === "Error") {
-                        window.location = "/checkout/cart";
+                        window.location = "<?php echo $this->getUrl('checkout/cart',
+                            array('_secure' => true)); ?>";
                     }
                 } else {
-                    window.location = "/checkout/cart";
+                    window.location = "<?php echo $this->getUrl('checkout/cart',
+                        array('_secure' => true)); ?>";
                 }
             });
         }

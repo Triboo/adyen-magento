@@ -124,7 +124,7 @@ class Adyen_Payment_Model_Adyen_PayByMail extends Adyen_Payment_Model_Adyen_Abst
         $incrementId = $order->getIncrementId();
         $realOrderId = $order->getRealOrderId();
         $orderCurrencyCode = $order->getOrderCurrencyCode();
-        $shopperIP = trim($order->getRemoteIp());
+        $shopperIP = trim($order->getXForwardedFor());
 
         $billingCountryCode = (is_object($order->getBillingAddress()) && $order->getBillingAddress()->getCountry() != "") ?
             $order->getBillingAddress()->getCountry() :
