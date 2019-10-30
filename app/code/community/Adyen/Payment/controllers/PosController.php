@@ -277,30 +277,50 @@ class Adyen_Payment_PosController extends Mage_Core_Controller_Front_Action
      */
     public function placeOrderAction()
     {
-        $quote = (Mage::getModel('checkout/type_onepage') !== false) ? Mage::getModel('checkout/type_onepage')->getQuote() : Mage::getModel('checkout/session')->getQuote();
-        $service = Mage::getModel('sales/service_quote', $quote);
+        //If checkout is onepage call savePayment/saveOrder, otherwise fallback to previous
+        if (Mage::getModel('checkout/type_onepage') !== false) {
 
-        $quote->getPayment()->setMethod('adyen_pos_cloud');
-        $quote->collectTotals()->save();
-        try {
-            $service->submitAll();
-            $order = $service->getOrder();
-            $order->save();
+            $onePage = Mage::getSingleton('checkout/type_onepage');
 
-            $result = self::ORDER_SUCCESS;
+            $quote = Mage::getModel('checkout/type_onepage')->getQuote();
+            $quote->getPayment()->setMethod('adyen_pos_cloud');
+            $quote->collectTotals()->save();
 
-            // add order information to the session
-            $session = Mage::getSingleton('checkout/session');
-            $session->setLastOrderId($order->getId());
-            $session->setLastRealOrderId($order->getIncrementId());
-            $session->setLastSuccessQuoteId($order->getQuoteId());
-            $session->setLastQuoteId($order->getQuoteId());
-            $session->unsAdyenRealOrderId();
-            $session->setQuoteId($session->getAdyenQuoteId(true));
-            $session->getQuote()->setIsActive(false)->save();
-        } catch (Exception $e) {
-            Mage::logException($e);
-            $result = self::ORDER_ERROR;
+            try {
+                $onePage->savePayment(array("method" => 'adyen_pos_cloud'));
+                $onePage->saveOrder();
+                $result = self::ORDER_SUCCESS;
+                $onePage->getQuote()->save();
+            } catch (Exception $e) {
+                Mage::logException($e);
+                $result = self::ORDER_ERROR;
+            }
+
+        } else {
+            $quote = Mage::getModel('checkout/session')->getQuote();
+            $quote->getPayment()->setMethod('adyen_pos_cloud');
+            $quote->collectTotals()->save();
+
+            try {
+                $service = Mage::getModel('sales/service_quote', $quote);
+                $service->submitAll();
+                $order = $service->getOrder();
+                $order->save();
+                $result = self::ORDER_SUCCESS;
+
+                // add order information to the session
+                $session = Mage::getSingleton('checkout/session');
+                $session->setLastOrderId($order->getId());
+                $session->setLastRealOrderId($order->getIncrementId());
+                $session->setLastSuccessQuoteId($order->getQuoteId());
+                $session->setLastQuoteId($order->getQuoteId());
+                $session->unsAdyenRealOrderId();
+                $session->setQuoteId($session->getAdyenQuoteId(true));
+                $session->getQuote()->setIsActive(false)->save();
+            } catch (Exception $e) {
+                Mage::logException($e);
+                $result = self::ORDER_ERROR;
+            }
         }
 
         $this->getResponse()->setHeader('Content-type', 'application/json');
