@@ -513,7 +513,7 @@ abstract class Adyen_Payment_Model_Adyen_Abstract extends Mage_Payment_Model_Met
             return false;
         }
 
-        $pspReference = $response->paymentResult->pspReference;
+        $pspReference = null;
 
         switch ($request) {
             case 'refund':
