@@ -10,13 +10,16 @@ Magento has officially announced that Magento 1 will reach end of life (EOL) on 
 The plugin integrates card component(Secured Fields) using Adyen Checkout for all card payments. Local/redirect payment methods are integrated with DirectoryLookup and HPP. For Point Of Sale (POS) payments we use Terminal API using Cloud-based communication. Boleto, MultiBanco and SEPA are a direct API integration into Adyen.
 
 ## Requirements
-The plugin supports the Magento Community (version 1.8 and higher) and Enterprise edition (version 1.13 and higher). 
+The plugin supports the Magento Community (version 1.8 and higher) and Enterprise edition (version 1.13 and higher).
 For Magento 2.x please use the following plugin: [https://github.com/Adyen/adyen-magento2](https://github.com/Adyen/adyen-magento2)
 
-## Collaboration
-We commit all our new features directly into our GitHub repository.
-But you can also request or suggest new features or code changes yourself!
+## Contributing
+We strongly encourage you to join us in contributing to this repository so everyone can benefit from:
+* New features and functionality
+* Resolved bug fixes and issues
+* Any general improvements
 
+Read our [**contribution guidelines**](CONTRIBUTING.md) to find out how.
 
 ## Installation
 Copy the folders to your main Magento environment or use composer:
