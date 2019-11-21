@@ -1415,6 +1415,9 @@ class Adyen_Payment_Model_ProcessNotification extends Mage_Core_Model_Abstract
             $fraudManualReviewStatus = $this->_getFraudManualReviewStatus($order);
             if ($fraudManualReviewStatus != "") {
                 $status = $fraudManualReviewStatus;
+                if($order->getState() == Mage_Sales_Model_Order::STATE_PAYMENT_REVIEW) {
+                    $order->setState(Mage_Sales_Model_Order::STATE_PENDING_PAYMENT);
+                }
                 $comment = "Adyen Payment is in Manual Review check the Adyen platform";
             }
         }
