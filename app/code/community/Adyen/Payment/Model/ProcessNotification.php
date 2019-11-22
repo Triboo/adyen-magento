@@ -981,6 +981,9 @@ class Adyen_Payment_Model_ProcessNotification extends Mage_Core_Model_Abstract
                     $status = $fraudManualReviewStatus;
                     $comment = "Adyen Payment is in Manual Review check the Adyen platform";
                     $order->addStatusHistoryComment(Mage::helper('adyen')->__($comment), $status);
+                    if($order->getState() == Mage_Sales_Model_Order::STATE_PAYMENT_REVIEW) {
+                        $order->setState(Mage_Sales_Model_Order::STATE_PENDING_PAYMENT);
+                    }
                     /**
                      * save the order this is needed for older magento version so that status is not reverted to state NEW
                      */
